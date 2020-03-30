@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+
+# labextensions
+jupyter labextension install --clean dask-labextension \
+                             @jupyter-widgets/jupyterlab-manager
+jupyter serverextension enable --py nbgitpuller --sys-prefix
