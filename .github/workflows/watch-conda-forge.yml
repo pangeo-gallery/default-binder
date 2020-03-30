@@ -1,0 +1,43 @@
+name: Check for new versions of pangeo on Conda Forge
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    if: github.repository == 'pangeo-gallery/default-binder'
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get latest pangeo version
+        id: latest_version
+        uses: jacobtomlinson/gha-anaconda-package-version@0.1.1
+        with:
+          org: "conda-forge"
+          package: "pangeo-notebook"
+      - name: Find and Replace Base
+        uses: jacobtomlinson/gha-find-replace@0.1.1
+        with:
+          include: "binder/"
+          find: "FROM pangeo/base-image: "
+          replace: "FROM pangeo/base-image:${{ steps.latest_version.outputs.version }} "
+      - name: Find and Replace Notebook
+        uses: jacobtomlinson/gha-find-replace@0.1.1
+        with:
+          include: "binder/"
+          find: "pangeo-notebook==.* "
+          replace: "pangeo-notebook==${{ steps.latest_version.outputs.version }} "
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update pangeo-notebook version to ${{ steps.latest_version.outputs.version }}"
+          title: "Update pangeo-notebook to ${{ steps.latest_version.outputs.version }}"
+          reviewers: "TomAugspurger"
+          branch: "upgrade-pangeo-version"
+          body: |
+            A new pangeo version has been detected.
+
+            Updated environment to use `${{ steps.latest_version.outputs.version }}`.
