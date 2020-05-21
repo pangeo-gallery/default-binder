@@ -1,1 +1,1 @@
-FROM pangeo/base-image:master
+FROM pangeo/base-image:d9dc971
