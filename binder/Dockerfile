@@ -1,1 +1,1 @@
-FROM pangeo/base-image:d9dc971
+FROM pangeo/pangeo-notebook:2020.10.10
