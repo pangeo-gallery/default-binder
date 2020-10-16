@@ -12,8 +12,12 @@ To use this with your own binder, you need to craft a URL providing
 2. The git repostiory with the content
 
 See https://pangeo-binder.readthedocs.io/en/prod/ for more on how to create
-links using pangeo's binder with this image. In particular, use the "Binder" tab
-on https://jupyterhub.github.io/nbgitpuller/link.html to generate the links.
+links using pangeo's binder with this image. In particular, this linn generator
+
+https://jupyterhub.github.io/nbgitpuller/link?repo=https://github.com/pangeo-gallery/default-binder&tab=binder.
+
+Update the "BinderHub URL" to point to one of pangeo's Binder's (e.g. https://binder.pangeo.io) and
+use your Git repostiory URL for the content.
 
 For example, the following URL runs the content from
 the `pangeo-gallery/example-gallery` repository at https://github.com/pangeo-gallery/example-gallery
