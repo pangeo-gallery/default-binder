@@ -1,1 +1,2 @@
-FROM pangeo/pangeo-notebook:2020.12.16
+FROM pangeo/pangeo-notebook:c8c0d72
+
